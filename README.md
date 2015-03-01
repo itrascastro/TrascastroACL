@@ -77,8 +77,7 @@ $acl = $this->serviceLocator->get('TrascastroACL');
 
 - onBootstrap
 
-````php
-<?php
+```php
 /**
  * (c) Ismael Trascastro <i.trascastro@gmail.com>
  *
@@ -152,4 +151,18 @@ class Module implements AutoloaderProviderInterface
         );
     }
 }
+```
+
+- From Views
+
+This line
+
+```php
+$event->getViewModel()->setVariable('acl', $acl);
+```
+
+makes the Acl Service accesible from your view scripts using the layout() View Helper as follows:
+
+```php
+<?php if ($this->layout()->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
 ```
