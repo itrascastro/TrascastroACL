@@ -1,0 +1,25 @@
+{
+    "name": "itrascastro/trascastro-acl",
+    "type": "library",
+    "description": "ACL Module for Zend Framework",
+    "keywords": ["acl", "module", "zend framework"],
+    "homepage": "https://github.com/itrascastro/TrascastroACL",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ismael Trascastro",
+            "email": "itrascastro@gmail.com",
+            "homepage": "http://www.ismaeltrascastro.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
