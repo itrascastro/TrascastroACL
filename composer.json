@@ -23,7 +23,7 @@
     },
     "scripts": {
         "post-package-install": [
-            "cp config/roles.global.php.dist ../../config/autoload/roles.global.php"
+            "cp config/roles.global.php.dist ../../../config/autoload/roles.global.php"
         ]
     }
 }
