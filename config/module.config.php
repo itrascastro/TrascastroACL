@@ -2,7 +2,7 @@
 /**
  * (c) Ismael Trascastro <i.trascastro@gmail.com>
  *
- * @link        http://www.ismaeltrascastro.com
+ * @link        https://github.com/itrascastro/TrascastroACL
  * @copyright   Copyright (c) Ismael Trascastro. (http://www.ismaeltrascastro.com)
  * @license     MIT License - http://en.wikipedia.org/wiki/MIT_License
  *
