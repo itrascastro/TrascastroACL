@@ -1,5 +1,5 @@
 {
-    "name": "itrascastro/easy-zf-acl",
+    "name": "itrascastro/acl",
     "type": "library",
     "description": "ACL Module for Zend Framework",
     "keywords": ["acl", "module", "zend framework"],
