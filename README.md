@@ -155,13 +155,13 @@ class Module implements AutoloaderProviderInterface
 
 - From Views
 
-This line
+This line makes the Acl Service accesible from your view scripts:
 
 ```php
 $event->getViewModel()->setVariable('acl', $acl);
 ```
 
-makes the Acl Service accesible from your view scripts using the layout() View Helper as follows:
+now you can ask for permissions using the layout() View Helper as follows:
 
 ```php
 <?php if ($this->layout()->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
