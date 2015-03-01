@@ -20,10 +20,5 @@
         "psr-0": {
             "TrascastroACL": "src"
         }
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "cp config/roles.global.php.dist ../roles.global.php"
-        ]
     }
 }
