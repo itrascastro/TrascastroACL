@@ -25,8 +25,7 @@ array(
 );
 ```
 
-- Copy the 'roles.global.dist' from TrascastroACL config directory and paste it to config/autoload folder removing the
-'.dist' termination. Now add your application roles:
+- Copy the 'roles.global.dist' from TrascastroACL config directory and paste it to config/autoload folder removing the '.dist' termination. Now add your application roles:
 
 ```php
 return [
@@ -66,3 +65,91 @@ array(
 ```
 
 Only users with 'admin' or 'moderator' roles can now access to that route. If you do not create the 'roles' key in a route or you left it empty, then the resource will be public.
+
+Accessing the Acl Service
+-------------------------
+
+- From a Controller
+
+````php
+$acl = $this->serviceLocator->get('TrascastroACL');
+````
+
+- onBootstrap
+
+````php
+<?php
+/**
+ * (c) Ismael Trascastro <i.trascastro@gmail.com>
+ *
+ * @link        https://github.com/itrascastro/TrascastroACL
+ * @copyright   Copyright (c) Ismael Trascastro. (http://www.ismaeltrascastro.com)
+ * @license     MIT License - http://en.wikipedia.org/wiki/MIT_License
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace User;
+
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
+use Zend\Permissions\Acl\Acl;
+
+class Module implements AutoloaderProviderInterface
+{
+    public function onBootstrap(MvcEvent $e)
+    {
+        $eventManager        = $e->getApplication()->getEventManager();
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->attach($eventManager);
+
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'routeHandler'), -100);
+    }
+
+    public function routeHandler(MvcEvent $event)
+    {
+        $match = $event->getRouteMatch();
+
+        if (!$match) { // we need a route
+            return;
+        }
+
+        $sm = $event->getApplication()->getServiceManager();
+        $authenticationService = $sm->get('User\Service\Authentication');
+
+        /**
+         * @var Acl $acl
+         */
+        $acl = $sm->get('TrascastroACL');
+
+        $role = ($identity = $authenticationService->getIdentity()) ? $identity->role : 'guest';
+
+        if (!$acl->isAllowed($role, $match->getMatchedRouteName())) {
+            $response = $event->getResponse();
+            $response->setStatusCode(401); // Auth required
+            $match->setParam('controller', 'User\Controller\Users');
+            $match->setParam('action', 'forbidden');
+        }
+
+        $event->getViewModel()->setVariable('acl', $acl);
+    }
+
+    public function getConfig()
+    {
+        return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getAutoloaderConfig()
+    {
+        return array(
+            'Zend\Loader\StandardAutoloader' => array(
+                'namespaces' => array(
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                ),
+            ),
+        );
+    }
+}
+```
