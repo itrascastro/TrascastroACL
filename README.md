@@ -44,6 +44,19 @@ return [
 ];
 ```
 
+- Create an alias to your Authentication Service in your module.config.php:
+
+```php
+'service_manager' => array(
+        'aliases' => array(
+            'Zend\Authentication\AuthenticationService' => 'YOUR_AUTHENTICATION_SERVICE',
+        ),
+        'factories' => array(
+            'YOUR_AUTHENTICATION_SERVICE' => 'MyModule\Service\Factory\AuthenticationServiceFactory',
+        ),
+    ),
+``
+
 Now you can manage your application access control from your routes by simply adding a 'roles' key like in this example:
 
 ```php
