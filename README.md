@@ -25,15 +25,20 @@ array(
 );
 ```
 
-- Copy the 'roles.global.dist' from TrascastroACL config directory and paste it to config/autoload folder removing the '.dist' termination. Now add your application roles:
+- Copy the 'TrascastroACL.global.dist' from TrascastroACL config directory and paste it to config/autoload folder removing the '.dist' termination. Now add your application roles ('guest' role is mandatory) and 
+also add the 'controller' and the 'action' where the ACL will redirect unallowed access tries:
 
 ```php
 return [
-    'application' => [
+    'TrascastroACL' => [
         'roles' => [
             'guest',
             'user',
             'admin',
+        ],
+        'forbidden' => [
+            'controller'    => 'YOUR_FORBIDDEN_MANAGER_CONTROLLER',
+            'action'        => 'YOUR_FORBIDDEN_MANAGER_ACTION',
         ],
     ],
 ];
@@ -77,91 +82,28 @@ $acl = $this->serviceLocator->get('TrascastroACL');
 
 - onBootstrap
 
-```php
-/**
- * (c) Ismael Trascastro <i.trascastro@gmail.com>
- *
- * @link        https://github.com/itrascastro/TrascastroACL
- * @copyright   Copyright (c) Ismael Trascastro. (http://www.ismaeltrascastro.com)
- * @license     MIT License - http://en.wikipedia.org/wiki/MIT_License
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+````php
+<?php
 
-namespace User;
+namespace MyModule;
 
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use Zend\Permissions\Acl\Acl;
 
 class Module implements AutoloaderProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
-
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'routeHandler'), -100);
-    }
-
-    public function routeHandler(MvcEvent $event)
-    {
-        $match = $event->getRouteMatch();
-
-        if (!$match) { // we need a route
-            return;
-        }
-
-        $sm = $event->getApplication()->getServiceManager();
-        $authenticationService = $sm->get('User\Service\Authentication');
-
-        /**
-         * @var Acl $acl
-         */
+        $sm = $e->getApplication()->getServiceManager();
         $acl = $sm->get('TrascastroACL');
-
-        $role = ($identity = $authenticationService->getIdentity()) ? $identity->role : 'guest';
-
-        if (!$acl->isAllowed($role, $match->getMatchedRouteName())) {
-            $response = $event->getResponse();
-            $response->setStatusCode(401); // Auth required
-            $match->setParam('controller', 'User\Controller\Users');
-            $match->setParam('action', 'forbidden');
-        }
-
-        $event->getViewModel()->setVariable('acl', $acl);
     }
 
-    public function getConfig()
-    {
-        return include __DIR__ . '/config/module.config.php';
-    }
-
-    public function getAutoloaderConfig()
-    {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
-        );
-    }
+    ...
 }
 ```
 
 - From Views
 
-This line makes the Acl Service accesible from your view scripts:
-
-```php
-$event->getViewModel()->setVariable('acl', $acl);
-```
-
-now you can ask for permissions using the layout() View Helper as follows:
+You can ask for permissions in your views using the layout() View Helper as follows:
 
 ```php
 <?php if ($this->layout()->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>

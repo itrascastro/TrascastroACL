@@ -38,7 +38,7 @@ class ACLServiceFactory implements FactoryInterface
     {
         $this->acl      = new Acl();
         $config         = $serviceLocator->get('config');
-        $this->roles    = $config['application']['roles'];
+        $this->roles    = $config['TrascastroACL']['roles'];
         $routes         = $config['router']['routes'];
 
         foreach ($this->roles as $role) {
