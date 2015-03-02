@@ -55,7 +55,7 @@ return [
             'YOUR_AUTHENTICATION_SERVICE' => 'MyModule\Service\Factory\AuthenticationServiceFactory',
         ),
     ),
-``
+```
 
 Now you can manage your application access control from your routes by simply adding a 'roles' key like in this example:
 
