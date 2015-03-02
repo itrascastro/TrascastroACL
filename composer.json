@@ -1,7 +1,7 @@
 {
     "name": "itrascastro/acl",
     "type": "library",
-    "description": "ACL Module for Zend Framework",
+    "description": "Easy ACL. Avoid handwriting ACL permissions in Zend Framework",
     "keywords": ["acl", "module", "zend framework"],
     "homepage": "https://github.com/itrascastro/TrascastroACL",
     "license": "MIT",
