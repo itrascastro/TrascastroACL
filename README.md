@@ -65,22 +65,22 @@ Now you can manage your application access control from your routes by simply ad
 ```php
 array(
     'router' => array(
-            'routes' => array(
-                'user\users\update' => array(
-                    'type' => 'Segment',
-                    'options' => array(
-                        'route'    => '/admin/users/update/id/:id/',
-                        'constraints' => array(
-                            'id' => '[0-9]+',
-                        ),
-                        'defaults' => array(
-                            'controller' => 'User\Controller\Users',
-                            'action'     => 'update',
-                            'roles'      => ['admin', 'moderator'],
-                        ),
+        'routes' => array(
+            'user\users\update' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route'    => '/admin/users/update/id/:id/',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'User\Controller\Users',
+                        'action'     => 'update',
+                        'roles'      => ['admin', 'moderator'],
                     ),
                 ),
             ),
+        ),
     ),
 );
 ```
