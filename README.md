@@ -11,8 +11,8 @@ Installation of TrascastroACL uses composer. For composer documentation, please 
     php composer.phar require itrascastro/acl:dev-master
 
 
-Usage
------
+Configuration
+-------------
 
 - Add the module name 'TrascastroACL' to your config/application.config.php
 
@@ -56,6 +56,9 @@ return [
     ),
 ),
 ```
+
+Usage
+-----
 
 Now you can manage your application access control from your routes by simply adding a 'roles' key like in this example:
 
