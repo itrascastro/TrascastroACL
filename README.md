@@ -1,7 +1,7 @@
 TrascastroACL
 =============
 
-This module creates an ACL service from your routes.
+This module creates an ACL service from your routes. Avoid handwriting ACL permissions rules for each role or route in your application.
 
 Installation
 ------------
