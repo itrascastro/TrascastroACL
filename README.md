@@ -44,7 +44,9 @@ return [
 ];
 ```
 
-- Create an alias to your Authentication Service in your module.config.php:
+- Create an alias to your Authentication Service:
+
+TrascastroACL Service will look for a service by the name or alias Zend\Authentication\AuthenticationService in the ServiceManager. You can provide this service to the ServiceManager in a configuration file:
 
 ```php
 'service_manager' => array(
