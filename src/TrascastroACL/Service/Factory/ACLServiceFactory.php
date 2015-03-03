@@ -78,9 +78,9 @@ class ACLServiceFactory implements FactoryInterface
                 $this->routeRolesToAcl($route, $value);
             } elseif ($value['may_terminate']) {
                 $this->routeRolesToAcl($route, $value);
-                $this->iterateChilds($route, $value);
+                $this->iterateChildRoutes($route, $value);
             } else {
-                $this->iterateChilds($route, $value);
+                $this->iterateChildRoutes($route, $value);
             }
         } else {
             $route = $parent . '/' . $route;
@@ -89,9 +89,9 @@ class ACLServiceFactory implements FactoryInterface
                 $this->routeRolesToAcl($route, $value);
             } elseif ($value['may_terminate']) {
                 $this->routeRolesToAcl($route, $value);
-                $this->iterateChilds($route, $value);
+                $this->iterateChildRoutes($route, $value);
             } else {
-                $this->iterateChilds($route, $value);
+                $this->iterateChildRoutes($route, $value);
             }
         }
     }
@@ -112,14 +112,14 @@ class ACLServiceFactory implements FactoryInterface
     }
 
     /**
-     * iterateChilds
+     * iterateChildRoutes
      *
      * Iterates child routes for a given route parsing each child
      *
      * @param string $route
      * @param array $value
      */
-    private function iterateChilds($route, $value)
+    private function iterateChildRoutes($route, $value)
     {
         foreach ($value['child_routes'] as $childRoute => $childValue) {
             $this->parseRoute($childRoute, $childValue, $route);
