@@ -12,9 +12,11 @@
 
 namespace TrascastroACL;
 
+use Zend\Http\Response;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\MvcEvent;
+use Zend\Permissions\Acl\Acl;
 
 class Module implements ConfigProviderInterface, AutoloaderProviderInterface
 {
@@ -48,11 +50,12 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface
             $action         = $config['TrascastroACL']['forbidden']['action'];
             $response       = $event->getResponse();
 
-            $response->setStatusCode(401); // Auth required
+            $response->setStatusCode(Response::STATUS_CODE_401); // Auth required
             $match->setParam('controller', $controller);
             $match->setParam('action', $action);
         }
 
+        // we make the acl available on views
         $event->getViewModel()->setVariable('acl', $acl);
     }
 
