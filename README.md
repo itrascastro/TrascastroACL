@@ -44,7 +44,7 @@ return [
 ];
 ```
 
-The role provider must implements the interface 'TrascastroACL\Provider\RoleProviderInterface':
+The role provider must implement the interface 'TrascastroACL\Provider\RoleProviderInterface':
 
 ```php
 namespace TrascastroACL\Provider;
