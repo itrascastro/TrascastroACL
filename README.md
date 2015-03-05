@@ -121,7 +121,13 @@ class Module implements AutoloaderProviderInterface
 
 - From Views
 
-You can ask for permissions in your views using the layout() View Helper as follows:
+This module provides a View Helper to have access to TrascastroACL in your views:
+
+```php
+<?php if ($this->acl()->isAllowed($this->identity()->role, 'admin\users\update')): ?>
+```
+
+It is also available using the layout() View Helper:
 
 ```php
 <?php if ($this->layout()->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
