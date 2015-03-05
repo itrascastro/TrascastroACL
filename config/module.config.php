@@ -14,6 +14,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'TrascastroACL' => 'TrascastroACL\Service\Factory\AclServiceFactory',
+            'TrascastroACL\Handler\RouteHandler'  => 'TrascastroACL\Handler\Factory\RouteHandlerFactory',
         ),
     ),
     'view_helpers' => array(

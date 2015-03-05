@@ -22,41 +22,10 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
+        $sm = $e->getApplication()->getServiceManager();
+        $routeHandler = $sm->get('TrascastroACL\Handler\RouteHandler');
         $eventManager = $e->getApplication()->getEventManager();
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'routeHandler'), -100);
-    }
-
-    public function routeHandler(MvcEvent $event)
-    {
-        $match = $event->getRouteMatch();
-
-        if (!$match) { // we need a route
-            return;
-        }
-
-        $sm = $event->getApplication()->getServiceManager();
-        $authenticationService = $sm->get('Zend\Authentication\AuthenticationService');
-
-        /**
-         * @var Acl $acl
-         */
-        $acl = $sm->get('TrascastroACL');
-
-        $role = ($identity = $authenticationService->getIdentity()) ? $identity->role : 'guest';
-
-        if (!$acl->isAllowed($role, $match->getMatchedRouteName())) {
-            $config         = $sm->get('config');
-            $controller     = $config['TrascastroACL']['forbidden']['controller'];
-            $action         = $config['TrascastroACL']['forbidden']['action'];
-            $response       = $event->getResponse();
-
-            $response->setStatusCode(Response::STATUS_CODE_403); // Forbidden
-            $match->setParam('controller', $controller);
-            $match->setParam('action', $action);
-        }
-
-        // we make the acl available on views
-        $event->getViewModel()->setVariable('acl', $acl);
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($routeHandler, 'handler'), -100);
     }
 
     public function getConfig()

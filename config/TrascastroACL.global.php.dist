@@ -30,5 +30,6 @@ return [
             'controller'    => 'YOUR_FORBIDDEN_MANAGER_CONTROLLER',
             'action'        => 'YOUR_FORBIDDEN_MANAGER_ACTION',
         ],
+        'role_provider' => 'YOUR_ROLE_PROVIDER',
     ],
 ];

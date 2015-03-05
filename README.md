@@ -25,8 +25,7 @@ array(
 );
 ```
 
-- Copy the 'TrascastroACL.global.dist' from TrascastroACL config directory and paste it to config/autoload folder removing the '.dist' termination. Now add your application roles ('guest' role is mandatory) and 
-also add the 'controller' and the 'action' where the ACL will redirect unallowed access tries:
+- Copy the 'TrascastroACL.global.dist' from TrascastroACL config directory and paste it to config/autoload folder removing the '.dist' termination. Now add your application roles and also add the 'controller' and the 'action' where the ACL will redirect unallowed access tries. You also need to add a role provider:
 
 ```php
 return [
@@ -40,23 +39,23 @@ return [
             'controller'    => 'YOUR_FORBIDDEN_MANAGER_CONTROLLER',
             'action'        => 'YOUR_FORBIDDEN_MANAGER_ACTION',
         ],
+        'role_provider' => 'YOUR_ROLE_PROVIDER',
     ],
 ];
 ```
 
-- Create an alias to your Authentication Service:
-
-TrascastroACL Service will look for a service by the name or alias Zend\Authentication\AuthenticationService in the ServiceManager. You can provide this service to the ServiceManager in a configuration file:
+The role provider must implements the interface 'TrascastroACL\Provider\RoleProviderInterface':
 
 ```php
-'service_manager' => array(
-    'aliases' => array(
-        'Zend\Authentication\AuthenticationService' => 'YOUR_AUTHENTICATION_SERVICE',
-    ),
-    'factories' => array(
-        'YOUR_AUTHENTICATION_SERVICE' => 'MyModule\Service\Factory\AuthenticationServiceFactory',
-    ),
-),
+namespace TrascastroACL\Provider;
+
+interface RoleProviderInterface 
+{
+    /**
+     * @return String
+     */
+    public function getUserRole();
+}
 ```
 
 Usage
