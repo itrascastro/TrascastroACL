@@ -92,13 +92,13 @@ Only users with 'admin' or 'moderator' roles can now access to that route. If yo
 Accessing the Acl Service
 -------------------------
 
-- From a Controller
+- **From a Controller**
 
 ```php
 $acl = $this->serviceLocator->get('TrascastroACL');
 ```
 
-- onBootstrap
+- **onBootstrap**
 
 ```php
 <?php
@@ -119,7 +119,7 @@ class Module implements AutoloaderProviderInterface
 }
 ```
 
-- From Views
+- **From Views**
 
 This module provides a View Helper to have access to TrascastroACL in your views:
 
@@ -133,7 +133,7 @@ It is also available using the layout() View Helper:
 <?php if ($this->layout()->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
 ```
 
-- From Layout
+- **From Layout**
 
 ```php
 <?php if ($this->acl()->isAllowed($this->identity()->role, 'admin\users\update')): ?>
