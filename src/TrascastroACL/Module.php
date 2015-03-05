@@ -50,7 +50,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface
             $action         = $config['TrascastroACL']['forbidden']['action'];
             $response       = $event->getResponse();
 
-            $response->setStatusCode(Response::STATUS_CODE_401); // Auth required
+            $response->setStatusCode(Response::STATUS_CODE_403); // Forbidden
             $match->setParam('controller', $controller);
             $match->setParam('action', $action);
         }
