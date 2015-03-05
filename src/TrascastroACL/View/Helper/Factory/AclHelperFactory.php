@@ -10,29 +10,18 @@
  * file that was distributed with this source code.
  */
 
-namespace TrascastroACL\View\Helper;
+namespace TrascastroACL\View\Helper\Factory;
 
 
-use Zend\Permissions\Acl\Acl;
-use Zend\View\Helper\AbstractHelper;
+use TrascastroACL\View\Helper\AclHelper;
 
-class AclHelper extends AbstractHelper
+class AclHelperFactory
 {
-    /**
-     * @var Acl
-     */
-    private $acl;
-
-    /**
-     * @param Acl $acl
-     */
-    public function __construct(Acl $acl)
+    public function __invoke($serviceLocator)
     {
-        $this->acl = $acl;
-    }
+        $sm = $serviceLocator->getServiceLocator();
+        $acl = $sm->get('TrascastroACL');
 
-    public function __invoke()
-    {
-        return $this->acl;
+        return new AclHelper($acl);
     }
 }
