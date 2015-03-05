@@ -132,3 +132,15 @@ It is also available using the layout() View Helper:
 ```php
 <?php if ($this->layout()->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
 ```
+
+- From Layout
+
+```php
+<?php if ($this->acl()->isAllowed($this->identity()->role, 'admin\users\update')): ?>
+```
+
+It is also available using a layout variable:
+
+```php
+<?php if ($this->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
+```
