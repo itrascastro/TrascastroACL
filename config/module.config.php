@@ -16,4 +16,9 @@ return array(
             'TrascastroACL' => 'TrascastroACL\Service\Factory\AclServiceFactory',
         ),
     ),
+    'view_helpers' => array(
+        'invokables' => array(
+            'acl' => 'TrascastroACL\View\Helper\AclHelper',
+        ),
+    ),
 );
