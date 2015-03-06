@@ -36,8 +36,8 @@ return [
             'admin',
         ],
         'forbidden' => [
-            'controller'    => 'YOUR_FORBIDDEN_MANAGER_CONTROLLER',
-            'action'        => 'YOUR_FORBIDDEN_MANAGER_ACTION',
+            'controller' => 'YOUR_FORBIDDEN_MANAGER_CONTROLLER',
+            'action'     => 'YOUR_FORBIDDEN_MANAGER_ACTION',
         ],
         'role_provider' => 'YOUR_ROLE_PROVIDER',
     ],
@@ -90,6 +90,35 @@ class RoleProvider implements RoleProviderInterface
         return ($identity = $this->authenticationService->getIdentity()) ? $identity->role : 'guest';
     }
 }
+```
+
+Where the Factory would be as follows:
+
+```php
+namespace User\Provider\Factory;
+
+use User\Provider\RoleProvider;
+
+class RoleProviderFactory
+{
+    public function __invoke($serviceLocator)
+    {
+        $authenticationService = $serviceLocator->get('User\Service\Authentication');
+
+        return new RoleProvider($authenticationService);
+    }
+}
+```
+
+Do not forget to add your provider to your module.config.php:
+
+```php
+'service_manager' => array(
+    'factories' => array(
+        // [ ... ]
+        'User\Provider\RoleProvider' => 'User\Provider\Factory\RoleProviderFactory',
+    ),
+),
 ```
 
 Usage
