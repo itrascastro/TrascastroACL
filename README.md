@@ -63,7 +63,6 @@ This is an example of a role provider class:
 ```php
 namespace User\Provider;
 
-
 use TrascastroACL\Provider\RoleProviderInterface;
 use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Authentication\AuthenticationService;
