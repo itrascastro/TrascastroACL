@@ -12,7 +12,6 @@
 
 namespace TrascastroACL\Handler;
 
-
 use TrascastroACL\Provider\RoleProviderInterface;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
@@ -42,8 +41,8 @@ class RouteHandler
      */
     function __construct(AclInterface $acl, $config, RoleProviderInterface $roleProvider)
     {
-        $this->acl = $acl;
-        $this->config = $config;
+        $this->acl          = $acl;
+        $this->config       = $config;
         $this->roleProvider = $roleProvider;
     }
 
@@ -75,6 +74,6 @@ class RouteHandler
         }
 
         // we make the acl available on views
-        $event->getViewModel()->setVariable('acl', $this->acl);
+        $event->getViewModel()->setVariable('tacl', $this->acl);
     }
 }

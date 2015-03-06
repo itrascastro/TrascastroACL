@@ -12,7 +12,6 @@
 
 namespace TrascastroACL\Handler\Factory;
 
-
 use TrascastroACL\Handler\RouteHandler;
 
 class RouteHandlerFactory

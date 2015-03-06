@@ -13,10 +13,8 @@
 namespace TrascastroACL\Service\Factory;
 
 use Zend\Permissions\Acl\Acl;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ACLServiceFactory implements FactoryInterface
+class ACLServiceFactory
 {
     /**
      * @var Acl
@@ -28,15 +26,9 @@ class ACLServiceFactory implements FactoryInterface
      */
     private $roles;
 
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke($serviceLocator)
     {
-        $this->acl      = new Acl();
+        $this->acl      = $serviceLocator->get('Zend\Permissions\Acl\Acl');
         $config         = $serviceLocator->get('config');
         $this->roles    = $config['TrascastroACL']['roles'];
         $routes         = $config['router']['routes'];

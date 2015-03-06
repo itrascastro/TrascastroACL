@@ -173,7 +173,7 @@ class Module implements AutoloaderProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $sm = $e->getApplication()->getServiceManager();
+        $sm  = $e->getApplication()->getServiceManager();
         $acl = $sm->get('TrascastroACL');
     }
 
@@ -186,23 +186,23 @@ class Module implements AutoloaderProviderInterface
 This module provides a View Helper to have access to TrascastroACL in your views:
 
 ```php
-<?php if ($this->acl()->isAllowed($this->identity()->role, 'admin\users\update')): ?>
+<?php if ($this->tacl()->isAllowed($this->identity()->role, 'admin\users\update')): ?>
 ```
 
 It is also available using the layout() View Helper:
 
 ```php
-<?php if ($this->layout()->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
+<?php if ($this->layout()->tacl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
 ```
 
 - **From Layout**
 
 ```php
-<?php if ($this->acl()->isAllowed($this->identity()->role, 'admin\users\update')): ?>
+<?php if ($this->tacl()->isAllowed($this->identity()->role, 'admin\users\update')): ?>
 ```
 
 It is also available using a layout variable:
 
 ```php
-<?php if ($this->acl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
+<?php if ($this->tacl->isAllowed($this->identity()->role, 'admin\users\update')): ?>
 ```

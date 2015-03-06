@@ -12,14 +12,17 @@
 
 return array(
     'service_manager' => array(
+        'invokables' => array(
+            'Zend\Permissions\Acl\Acl'              => 'Zend\Permissions\Acl\Acl',
+        ),
         'factories' => array(
-            'TrascastroACL' => 'TrascastroACL\Service\Factory\AclServiceFactory',
-            'TrascastroACL\Handler\RouteHandler'  => 'TrascastroACL\Handler\Factory\RouteHandlerFactory',
+            'TrascastroACL'                         => 'TrascastroACL\Service\Factory\AclServiceFactory',
+            'TrascastroACL\Handler\RouteHandler'    => 'TrascastroACL\Handler\Factory\RouteHandlerFactory',
         ),
     ),
     'view_helpers' => array(
         'factories' => array(
-            'acl' => 'TrascastroACL\View\Helper\Factory\AclHelperFactory',
+            'tacl' => 'TrascastroACL\View\Helper\Factory\AclHelperFactory',
         ),
     ),
 );

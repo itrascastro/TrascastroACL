@@ -12,7 +12,6 @@
 
 namespace TrascastroACL\Provider;
 
-
 interface RoleProviderInterface 
 {
     /**
