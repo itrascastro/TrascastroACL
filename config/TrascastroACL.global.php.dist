@@ -8,15 +8,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * ----------------
- * Usage
- * ----------------
- *
- * 'guest' role is mandatory, feel free to add any other role
- *
- * In the forbidden key you have to put the controller and the action where a non allowed access will be redirected to
- *
  */
 
 return [
