@@ -16,7 +16,7 @@ return array(
             'Zend\Permissions\Acl\Acl'              => 'Zend\Permissions\Acl\Acl',
         ),
         'factories' => array(
-            'TrascastroACL'                         => 'TrascastroACL\Service\Factory\AclServiceFactory',
+            'TrascastroACL'                         => 'TrascastroACL\Service\Factory\ACLServiceFactory',
             'TrascastroACL\Handler\RouteHandler'    => 'TrascastroACL\Handler\Factory\RouteHandlerFactory',
         ),
     ),
